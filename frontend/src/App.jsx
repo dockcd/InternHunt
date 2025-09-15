@@ -12,6 +12,7 @@ import ManageDocuments from './pages/ManageDocuments';
 import GuideDashboard from './guide/GuideDashboard';
 import StudentManagement from './guide/StudentManagement';
 import Announcements from './pages/Announcements';
+import Internship from './guide/Internship';
 
 
 // Placeholder imports for guide components (create these as needed)
@@ -97,17 +98,16 @@ export default function App() {
             </PrivateRoute>
           }
         />
-
-        {/*
         <Route
-          path="/manage-internships"
-          element={
-            <PrivateRoute role="guide">
-              <ManageInternships />
+        path="/guide/manage-internships"
+        element={
+            <PrivateRoute role="faculty">
+              <Internship />
             </PrivateRoute>
           }
         />
-        */}
+
+
 
         {/* Catch-all route to redirect unknown paths */}
         <Route path="*" element={<Navigate to="/" />} />
