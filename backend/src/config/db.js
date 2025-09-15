@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Sequelize } = require('sequelize');
-
+const { pool } = require('../config/db');
 
 const sequelize = new Sequelize(process.env.POSTGRES_URI, {
   dialect: 'postgres',
@@ -34,5 +34,6 @@ const connectMongoDB = async () => {
 module.exports = {
   connectMongoDB,
   sequelize, 
-  testPostgresConnection
+  testPostgresConnection,
+  pool,
 };
