@@ -12,7 +12,7 @@ const internshipRoutes = require('./src/routes/internshipRoutes');
 const documentRoutes = require('./src/routes/documentRoutes');
 const guideRoutes = require('./src/routes/guideRoutes');
 const announcementRoutes = require('./src/routes/announcementRoutes');
-
+const guideInternshipRoutes = require('./src/routes/guideInternshipRoutes');
 
 app.use(cors({
   origin: 'http://localhost:5173',
@@ -27,6 +27,10 @@ app.use('/api/students/internships', internshipRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/guide', guideRoutes);
 app.use('/api/announcements', announcementRoutes);
+
+
+
+app.use('/api/guidefunctions', guideInternshipRoutes);
 
 const PORT = process.env.PORT || 5000;
 

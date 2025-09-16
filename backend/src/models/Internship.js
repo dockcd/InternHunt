@@ -30,6 +30,15 @@ const Internship = sequelize.define('Internship', {
     isIn: [['Ongoing', 'Completed']],  // Validate enum values at app level
   },
 },
+ acceptance: {
+    type: DataTypes.ENUM('Approved', 'Rejected'),
+    allowNull: true,
+  },
+
+  remarks: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  }
 }, {
   timestamps: true,
   // Prevent Sequelize from trying to create the enum type (since it already exists)

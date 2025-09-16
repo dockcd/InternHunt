@@ -45,41 +45,57 @@ export default function StudentManagement() {
     }
   }
 
-  if (loading) return <p>Loading students...</p>;
-  if (error) return <p className="text-red-600">{error}</p>;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-slate-900 dark:to-blue-900">
+        <p className="text-blue-600 dark:text-blue-400 text-lg font-medium">Loading students...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-slate-900 dark:to-blue-900">
+        <p className="text-red-600 text-lg font-medium">{error}</p>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <h2 className="text-xl font-bold mb-4">Student Management</h2>
-      <table className="min-w-full border">
-        <thead className="bg-gray-200">
-          <tr>
-            <th className="p-2 border">Department</th>
-            <th className="p-2 border">Reg No</th>
-            <th className="p-2 border">Name</th>
-            <th className="p-2 border">Current Guide</th>
-            <th className="p-2 border">Select</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.map(({ department, register_number, name, current_guide }) => (
-            <tr key={register_number} className="text-center border">
-              <td className="p-2 border">{department}</td>
-              <td className="p-2 border">{register_number}</td>
-              <td className="p-2 border">{name}</td>
-              <td className="p-2 border">{current_guide || 'None'}</td>
-              <td className="p-2 border">
-                <button
-                  className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
-                  onClick={() => assignGuide(register_number)}
-                >
-                  Select
-                </button>
-              </td>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-slate-900 dark:to-blue-900 p-8">
+      <h2 className="text-3xl font-bold mb-6 text-slate-900 dark:text-white">Student Management</h2>
+      <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead className="bg-gray-100 dark:bg-slate-800">
+            <tr>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Department</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Reg No</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Name</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Current Guide</th>
+              <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 dark:text-gray-300">Select</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
+          </thead>
+          <tbody className="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-gray-700">
+            {students.map(({ department, register_number, name, current_guide }) => (
+              <tr key={register_number} className="text-slate-900 dark:text-slate-200">
+                <td className="px-4 py-3 whitespace-nowrap">{department}</td>
+                <td className="px-4 py-3 whitespace-nowrap">{register_number}</td>
+                <td className="px-4 py-3 whitespace-nowrap">{name}</td>
+                <td className="px-4 py-3 whitespace-nowrap">{current_guide || 'None'}</td>
+                <td className="px-4 py-3 text-center whitespace-nowrap">
+                  <button
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                    onClick={() => assignGuide(register_number)}
+                    aria-label={`Assign guide to student ${name} (${register_number})`}
+                  >
+                    Select
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
