@@ -14,6 +14,8 @@ import StudentManagement from './guide/StudentManagement';
 import Announcements from './pages/Announcements';
 import Internship from './guide/Internship';
 
+import ResumeScanner from './pages/ResumeScanner';
+
 
 // Placeholder imports for guide components (create these as needed)
 // import GuideDashboard from './pages/GuideDashboard';
@@ -67,6 +69,14 @@ export default function App() {
           element={
             <PrivateRoute role="student">
               <ManageDocuments />
+            </PrivateRoute>
+          }
+        />
+         <Route
+          path="/resume-scanner"
+          element={
+            <PrivateRoute role="student">
+              <ResumeScanner />
             </PrivateRoute>
           }
         />

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const pool = require('../config/pgPool'); // PostgreSQL pool for raw queries
 
 const StudentDetails = require('../models/StudentDetails');
 const Internship = require('../models/Internship');
@@ -73,6 +74,66 @@ router.patch('/internship/:id', async (req, res) => {
   }
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+router.get('/internship_with_doc/:studentEmail', async (req, res) => {
+  try {
+    const { studentEmail } = req.params;
+
+    // Fetch internships for the given student email using Sequelize
+    const internships = await Internship.findAll({
+      where: { student_email: studentEmail.toLowerCase() },
+      order: [['createdAt', 'DESC']],
+      raw: true,  // get plain JSON objects for easy merging
+    });
+
+    // For each internship, fetch its documents from internship_documents
+    const internshipsWithDocs = await Promise.all(
+      internships.map(async (internship) => {
+        const docQuery = `
+          SELECT bonafide_letter_url, internship_offer_letter_url, internship_completion_letter_url, internship_report_url
+          FROM internship_documents
+          WHERE student_email = $1 AND internship_id = $2
+          LIMIT 1
+        `;
+        const { rows } = await pool.query(docQuery, [
+          studentEmail.toLowerCase(),
+          internship.id,
+        ]);
+
+        // Attach documents info or null if not found
+        return {
+          ...internship,
+          documents: rows[0] || null,
+        };
+      })
+    );
+
+    res.json({ internships: internshipsWithDocs });
+  } catch (error) {
+    console.error('Error fetching internships with documents:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
 
 
 
