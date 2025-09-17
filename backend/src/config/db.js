@@ -7,8 +7,6 @@ const sequelize = new Sequelize(process.env.POSTGRES_URI, {
   logging: false // Set to console.log to see SQL queries in development
 });
 
-
-
 const testPostgresConnection = async () => {
   try {
     await sequelize.authenticate();
@@ -18,8 +16,6 @@ const testPostgresConnection = async () => {
     process.exit(1);
   }
 };
-
-
 
 const connectMongoDB = async () => {
   try {
